@@ -1,9 +1,9 @@
 {
   "id": "digital-garden-timer",
   "name": "Digital Garden Timer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "minAppVersion": "1.5.0",
-  "description": "A focus timer for Obsidian that turns focused minutes into credits for a small digital garden.",
+  "description": "A focus timer that turns focused minutes into credits for a small digital garden.",
   "author": "lucidalpha",
   "authorUrl": "https://github.com/lucidalpha",
   "isDesktopOnly": false
