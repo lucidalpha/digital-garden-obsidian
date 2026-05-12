@@ -1,0 +1,497 @@
+/* ---------- Digital Garden Timer · Dark Forest ---------- */
+
+.dgt-view {
+  --dgt-bg-1: #2a342f;
+  --dgt-bg-2: #1f2823;
+  --dgt-card: #344039;
+  --dgt-card-soft: #2c372f;
+  --dgt-field-1: #3a4640;
+  --dgt-field-2: #2a342f;
+  --dgt-line: rgba(190, 210, 195, 0.12);
+  --dgt-line-soft: rgba(190, 210, 195, 0.06);
+
+  --dgt-ink: #e8ebe5;
+  --dgt-ink-soft: #c5cabf;
+  --dgt-muted: #8a958c;
+
+  --dgt-grass: #7fb069;
+  --dgt-grass-deep: #5e8d4f;
+  --dgt-grass-light: #a3c585;
+  --dgt-warm: #f4a957;
+
+  color: var(--dgt-ink);
+  min-height: 100%;
+  padding: 20px 22px 26px;
+  background: linear-gradient(180deg, var(--dgt-bg-1) 0%, var(--dgt-bg-2) 100%);
+  background-attachment: fixed;
+  font-family: var(--font-interface, "Inter", ui-sans-serif, system-ui);
+}
+
+.dgt-shell {
+  position: relative;
+  z-index: 1;
+  min-height: calc(100vh - 92px);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 18px;
+}
+
+/* ---------- Focus bar ---------- */
+
+.dgt-focusbar {
+  position: relative;
+  padding: 22px 24px;
+  border: 1px solid var(--dgt-line);
+  border-radius: 18px;
+  background: var(--dgt-card);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 8px 24px rgba(0, 0, 0, 0.25);
+  display: grid;
+  grid-template-columns: minmax(190px, 0.7fr) minmax(260px, 0.95fr) minmax(360px, 1.35fr);
+  align-items: center;
+  gap: 22px;
+}
+
+.dgt-brand-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dgt-brand-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, var(--dgt-grass-light), var(--dgt-grass) 60%, var(--dgt-grass-deep) 100%);
+  box-shadow: 0 0 8px rgba(127, 176, 105, 0.45);
+}
+
+.dgt-brand h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  color: var(--dgt-ink);
+}
+
+.dgt-muted,
+.dgt-progress-top {
+  color: var(--dgt-muted);
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.dgt-brand .dgt-muted {
+  margin-top: 6px;
+}
+
+.dgt-time {
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(2.6rem, 5.4vw, 4.4rem);
+  line-height: 0.95;
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  color: var(--dgt-ink);
+}
+
+.dgt-status {
+  margin-top: 8px;
+  min-height: 1.25em;
+  letter-spacing: 0.01em;
+}
+
+.dgt-control-block {
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr);
+  grid-template-areas:
+    "button metrics"
+    "progress progress";
+  gap: 12px;
+  align-items: stretch;
+}
+
+.dgt-buttons {
+  grid-area: button;
+  display: grid;
+  grid-template-rows: 1fr 40px;
+  gap: 8px;
+}
+
+.dgt-primary,
+.dgt-secondary {
+  min-height: 64px;
+  border: 0 !important;
+  border-radius: 14px !important;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+.dgt-primary {
+  color: #ffffff !important;
+  background: linear-gradient(180deg, var(--dgt-grass-light) 0%, var(--dgt-grass) 60%, var(--dgt-grass-deep) 100%) !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.25) inset,
+    0 -2px 0 rgba(0, 0, 0, 0.15) inset,
+    0 6px 14px rgba(0, 0, 0, 0.30) !important;
+  font-size: 0.96rem;
+}
+
+.dgt-secondary {
+  min-height: 40px;
+  color: var(--dgt-ink-soft) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid var(--dgt-line) !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset !important;
+  font-size: 0.78rem;
+}
+
+.dgt-primary:hover,
+.dgt-secondary:hover {
+  transform: translateY(-1px);
+}
+
+.dgt-primary:hover {
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.25) inset,
+    0 -2px 0 rgba(0, 0, 0, 0.15) inset,
+    0 10px 22px rgba(0, 0, 0, 0.40) !important;
+}
+
+.dgt-primary:active {
+  transform: translateY(0);
+}
+
+.dgt-secondary:active {
+  transform: translateY(0);
+}
+
+.dgt-view.is-running .dgt-primary {
+  background: linear-gradient(180deg, #f7c378 0%, var(--dgt-warm) 60%, #d97e2b 100%) !important;
+}
+
+.dgt-metrics {
+  grid-area: metrics;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.dgt-metric {
+  min-width: 0;
+  min-height: 64px;
+  padding: 11px 13px;
+  border: 1px solid var(--dgt-line);
+  border-radius: 12px;
+  background: var(--dgt-card-soft);
+  display: grid;
+  align-content: space-between;
+  transition: border-color 200ms ease, background 200ms ease;
+}
+
+.dgt-metric:hover {
+  border-color: rgba(127, 176, 105, 0.35);
+}
+
+.dgt-metric strong {
+  font-size: clamp(0.92rem, 1.15vw, 1.12rem);
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--dgt-ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dgt-metric span {
+  color: var(--dgt-muted);
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.dgt-metric.is-credits strong {
+  color: var(--dgt-grass-light);
+}
+
+.dgt-progress {
+  grid-area: progress;
+  display: grid;
+  gap: 8px;
+}
+
+.dgt-progress-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: baseline;
+}
+
+.dgt-progress-top strong {
+  font-variant-numeric: tabular-nums;
+  color: var(--dgt-ink);
+  font-weight: 600;
+}
+
+.dgt-progress-bar {
+  height: 8px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--dgt-line-soft);
+}
+
+.dgt-progress-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--dgt-grass-light) 0%, var(--dgt-grass) 60%, var(--dgt-grass-deep) 100%);
+  transition: width 280ms ease;
+}
+
+/* ---------- Garden panel ---------- */
+
+.dgt-garden-panel {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  padding: 22px;
+  border: 1px solid var(--dgt-line);
+  border-radius: 18px;
+  background: var(--dgt-card);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 8px 24px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+}
+
+.dgt-garden-header {
+  padding: 0 2px 14px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.dgt-garden-title h3 {
+  margin: 0;
+  color: var(--dgt-ink);
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.dgt-garden-title .dgt-muted {
+  margin-top: 4px;
+}
+
+/* ---------- Shop ---------- */
+
+.dgt-shop {
+  margin-bottom: 16px;
+  padding: 14px;
+  border: 1px solid var(--dgt-line);
+  border-radius: 14px;
+  background: var(--dgt-card-soft);
+}
+
+.dgt-shop-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.dgt-shop-head strong {
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dgt-ink);
+  font-weight: 700;
+}
+
+.dgt-shop-head span {
+  color: var(--dgt-muted);
+  font-size: 0.76rem;
+}
+
+.dgt-shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.dgt-shop-item {
+  position: relative;
+  min-width: 0;
+  min-height: 72px;
+  border: 1px solid var(--dgt-line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.025);
+  color: var(--dgt-ink);
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background 180ms ease;
+}
+
+.dgt-shop-item:disabled {
+  cursor: default;
+  opacity: 0.45;
+  filter: saturate(0.5);
+}
+
+.dgt-shop-item.is-affordable {
+  border-color: rgba(127, 176, 105, 0.45);
+  background: rgba(127, 176, 105, 0.08);
+}
+
+.dgt-shop-item.is-affordable:hover {
+  transform: translateY(-2px);
+  border-color: var(--dgt-grass);
+  background: rgba(127, 176, 105, 0.14);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.30);
+}
+
+.dgt-shop-icon {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #4a5247 0%, #38423a 100%);
+  border: 1px solid var(--dgt-line-soft);
+}
+
+.dgt-shop-svg {
+  width: 52px;
+  height: 52px;
+  display: block;
+}
+
+.dgt-shop-copy {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+}
+
+.dgt-shop-name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.005em;
+  color: var(--dgt-ink);
+}
+
+.dgt-shop-cost {
+  font-size: 0.74rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--dgt-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+}
+
+.dgt-shop-cost::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, var(--dgt-grass-light), var(--dgt-grass) 60%, var(--dgt-grass-deep) 100%);
+}
+
+.dgt-shop-item.is-affordable .dgt-shop-cost {
+  color: var(--dgt-ink-soft);
+}
+
+/* ---------- Garden field ---------- */
+
+.dgt-field {
+  position: relative;
+  flex: 1;
+  min-height: 540px;
+  max-height: 72vh;
+  border-radius: 16px;
+  overflow: auto;
+  border: 1px solid var(--dgt-line);
+  background: linear-gradient(180deg, var(--dgt-field-1) 0%, var(--dgt-field-2) 100%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    inset 0 0 0 1px rgba(0, 0, 0, 0.15);
+  scrollbar-color: rgba(127, 176, 105, 0.55) rgba(31, 40, 35, 0.85);
+  scrollbar-width: thin;
+}
+
+.dgt-scene {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.dgt-empty {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  padding: 28px;
+  color: var(--dgt-ink-soft);
+  text-align: center;
+  pointer-events: none;
+  font-size: 0.92rem;
+  letter-spacing: 0.01em;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 1180px) {
+  .dgt-focusbar {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .dgt-control-block {
+    grid-template-columns: 120px minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .dgt-view {
+    padding: 14px;
+  }
+
+  .dgt-control-block {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "button"
+      "metrics"
+      "progress";
+  }
+
+  .dgt-metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dgt-garden-panel {
+    padding: 16px;
+  }
+}
