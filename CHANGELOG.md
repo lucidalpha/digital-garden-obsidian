@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2
+
+- Remove CSS patterns rejected by the community plugin linter.
+
 ## 1.0.1
 
 - Update plugin description to satisfy community plugin review requirements.

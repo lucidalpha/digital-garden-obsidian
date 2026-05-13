@@ -1,7 +1,7 @@
 {
   "id": "digital-garden-timer",
   "name": "Digital Garden Timer",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "minAppVersion": "1.5.0",
   "description": "A focus timer that turns focused minutes into credits for a small digital garden.",
   "author": "lucidalpha",

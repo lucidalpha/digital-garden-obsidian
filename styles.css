@@ -24,7 +24,7 @@
   padding: 20px 22px 26px;
   background: linear-gradient(180deg, var(--dgt-bg-1) 0%, var(--dgt-bg-2) 100%);
   background-attachment: fixed;
-  font-family: var(--font-interface, "Inter", ui-sans-serif, system-ui);
+  font-family: var(--font-interface);
 }
 
 .dgt-shell {
@@ -121,8 +121,8 @@
 .dgt-primary,
 .dgt-secondary {
   min-height: 64px;
-  border: 0 !important;
-  border-radius: 14px !important;
+  border: 0;
+  border-radius: 14px;
   font-weight: 700;
   letter-spacing: 0.02em;
   cursor: pointer;
@@ -130,21 +130,21 @@
 }
 
 .dgt-primary {
-  color: #ffffff !important;
-  background: linear-gradient(180deg, var(--dgt-grass-light) 0%, var(--dgt-grass) 60%, var(--dgt-grass-deep) 100%) !important;
+  color: #ffffff;
+  background: linear-gradient(180deg, var(--dgt-grass-light) 0%, var(--dgt-grass) 60%, var(--dgt-grass-deep) 100%);
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.25) inset,
     0 -2px 0 rgba(0, 0, 0, 0.15) inset,
-    0 6px 14px rgba(0, 0, 0, 0.30) !important;
+    0 6px 14px rgba(0, 0, 0, 0.30);
   font-size: 0.96rem;
 }
 
 .dgt-secondary {
   min-height: 40px;
-  color: var(--dgt-ink-soft) !important;
-  background: rgba(255, 255, 255, 0.06) !important;
-  border: 1px solid var(--dgt-line) !important;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset !important;
+  color: var(--dgt-ink-soft);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--dgt-line);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
   font-size: 0.78rem;
 }
 
@@ -157,7 +157,7 @@
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.25) inset,
     0 -2px 0 rgba(0, 0, 0, 0.15) inset,
-    0 10px 22px rgba(0, 0, 0, 0.40) !important;
+    0 10px 22px rgba(0, 0, 0, 0.40);
 }
 
 .dgt-primary:active {
@@ -169,7 +169,7 @@
 }
 
 .dgt-view.is-running .dgt-primary {
-  background: linear-gradient(180deg, #f7c378 0%, var(--dgt-warm) 60%, #d97e2b 100%) !important;
+  background: linear-gradient(180deg, #f7c378 0%, var(--dgt-warm) 60%, #d97e2b 100%);
 }
 
 .dgt-metrics {
